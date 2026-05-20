@@ -31,7 +31,7 @@ flowchart TD
     C3 -->|"Plan + Tasks"| G3
     G3 -->|"yes"| C4
     G3 -.->|"revise"| C3
-    C4 -->|"Artifacts"| G4
+    C4 -->|"Artifacts + Notes"| G4
     G4 -->|"yes"| C5
     G4 -.->|"fix"| C4
     C5 -->|"Review Report"| G5
