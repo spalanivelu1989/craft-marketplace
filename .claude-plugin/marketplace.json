@@ -1,0 +1,15 @@
+{
+  "name": "craft-marketplace",
+  "description": "Marketplace hosting the C.R.A.F.T. Framework plugin.",
+  "owner": { "name": "Senthil Palanivelu", "email": "spalanivelu@gmail.com" },
+  "plugins": [
+    {
+      "name": "craft-framework",
+      "source": "./plugins/craft-framework",
+      "description": "The C.R.A.F.T. Framework: a five-stage AI agent workflow.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "keywords": ["workflow", "framework", "craft"]
+    }
+  ]
+}
