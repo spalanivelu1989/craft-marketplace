@@ -15,7 +15,9 @@ ship it or loop back. **Deliverable:** a Review Report.
 ## How to run this stage
 
 1. **Adopt the Reviewer role.** Your job: "looks done" isn't done — prove it.
-2. **Read** the working artifacts, the Spec, and `tasks.md`.
+2. **Read** the working artifacts, the Spec, `tasks.md`, and
+   `implementation-notes.md`. The notes are your primary evidence of where the
+   implementation intentionally or unintentionally diverged from the Spec.
 3. **Run all three review layers** and give each a verdict —
    **PASS**, **CONCERNS**, or **FAIL**:
    - **Layer 1 — Function: does it work?** Run tests, manual QA, trials.
@@ -24,9 +26,11 @@ ship it or loop back. **Deliverable:** a Review Report.
      maintainability, and safety/security where relevant. Remove unnecessary
      complexity. For high-stakes work, get a second opinion.
    - **Layer 3 — Alignment: does it match the Spec?** Check every acceptance
-     criterion. Detect drift — anything built that the Spec didn't ask for, or
-     anything the Spec asked for that's missing. If intent legitimately
-     changed during the build, update the Spec and bump its version.
+     criterion. **Read `implementation-notes.md` carefully** — every noted
+     decision, tradeoff, or spec gap is a candidate alignment issue. Detect
+     drift — anything built that the Spec didn't ask for, or anything the Spec
+     asked for that's missing. If intent legitimately changed during the build,
+     update the Spec and bump its version.
 4. **Write the Review Report** using `templates/review-report-template.md` in
    this skill folder. Include the three verdicts, evidence, issues by severity,
    and a recommendation. Save it as `specs/<project-name>/review-report.md`.
@@ -51,3 +55,5 @@ the next project — is faster. Update `STATE.md` with the decision.
 - Drift found but the Spec was never updated.
 - Work shipped despite a FAIL because of time pressure.
 - The loop happened but no learnings were written down.
+- `implementation-notes.md` not read — every entry there is a potential
+  alignment issue that the Reviewer must examine.

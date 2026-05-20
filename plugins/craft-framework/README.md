@@ -25,7 +25,8 @@ with a human sign-off between each one.
 `strategist`, `planner`, `builder`, `reviewer`.
 
 **Bundled templates** for every deliverable — Brief, Spec, Plan, Tasks,
-Review Report, and the four memory files.
+Review Report, and the five memory files (including `implementation-notes.md`,
+a live log of decisions and tradeoffs written during Forge).
 
 ## Quick start
 

@@ -30,7 +30,8 @@ project memory files (recommended before Stage 1).
 ## How to guide the user
 
 1. **First time in a project?** Suggest running `setup-memory` to create the
-   `CONSTITUTION.md`, `CONTEXT.md`, `STATE.md`, and `LEARNINGS.md` files.
+   `CONSTITUTION.md`, `CONTEXT.md`, `STATE.md`, `LEARNINGS.md`, and
+   `implementation-notes.md` files.
 2. **Starting fresh work?** Begin at Stage 1 — `clarify`. Never skip it.
 3. **Mid-project?** Read `STATE.md` to see where things stand, then run the
    next stage in sequence.
@@ -46,6 +47,8 @@ project memory files (recommended before Stage 1).
 - Small tasks win — if a task takes more than ~5 minutes to describe, split it.
 - A human signs off between stages — always.
 - Write down what you learn — Memory is what makes the next project cheaper.
+- Log decisions in real time — `implementation-notes.md` is only useful if
+  entries are written the moment a decision is made, not reconstructed later.
 
 ## The five roles
 

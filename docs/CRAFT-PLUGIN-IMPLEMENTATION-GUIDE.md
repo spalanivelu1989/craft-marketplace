@@ -169,11 +169,11 @@ The C.R.A.F.T. plugin has **7 skills**:
 | Folder | Purpose |
 |--------|---------|
 | `craft/` | Orchestrator — explains the framework, routes to the right stage |
-| `setup-memory/` | One-time setup — creates the four memory files |
+| `setup-memory/` | One-time setup — creates the five memory files |
 | `clarify/` | Stage 1 |
 | `record/` | Stage 2 |
 | `assemble/` | Stage 3 |
-| `forge/` | Stage 4 |
+| `forge/` | Stage 4 — also maintains `implementation-notes.md` live log |
 | `test-tune/` | Stage 5 |
 
 > **Skills vs. commands:** older plugins used a `commands/` folder of flat
@@ -197,7 +197,12 @@ skills/setup-memory/templates/CONSTITUTION.md
 skills/setup-memory/templates/CONTEXT.md
 skills/setup-memory/templates/STATE.md
 skills/setup-memory/templates/LEARNINGS.md
+skills/setup-memory/templates/implementation-notes.md
 ```
+
+> `implementation-notes.md` is created empty by `setup-memory` and filled
+> incrementally by the builder during Stage 4 (Forge). It captures every
+> decision, tradeoff, or spec gap as it happens — not retroactively.
 
 Inside each `SKILL.md`, point Claude at its template with a relative path, e.g.
 *"Use the template at `templates/brief-template.md` in this skill folder."*
@@ -444,6 +449,9 @@ individual or team to use the plugin.
 [ ] plugin.json written, name is kebab-case, version set
 [ ] 7 SKILL.md files written, each with a clear description
 [ ] Templates bundled inside each skill's own templates/ folder
+[ ]   └── setup-memory/templates/ includes all 5 memory files:
+[ ]       CONSTITUTION.md, CONTEXT.md, STATE.md, LEARNINGS.md,
+[ ]       implementation-notes.md
 [ ] 5 agent files written with name + description frontmatter
 [ ] marketplace.json written at repo root, owner + plugins[] set
 [ ] README.md and LICENSE added

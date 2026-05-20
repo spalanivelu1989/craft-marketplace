@@ -7,7 +7,7 @@
       "name": "craft-framework",
       "source": "./plugins/craft-framework",
       "description": "The C.R.A.F.T. Framework: a five-stage AI agent workflow.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "productivity",
       "keywords": ["workflow", "framework", "craft"]
     }
