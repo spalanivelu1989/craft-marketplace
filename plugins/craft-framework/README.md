@@ -27,13 +27,6 @@ with a human sign-off between each one.
 **Bundled templates** for every deliverable — Brief, Spec, Plan, Tasks,
 Review Report, and the four memory files.
 
-## Install
-
-```
-/plugin marketplace add your-org/craft-marketplace
-/plugin install craft-framework@craft-marketplace
-```
-
 ## Quick start
 
 ```
