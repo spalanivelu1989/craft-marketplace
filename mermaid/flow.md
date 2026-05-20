@@ -1,3 +1,4 @@
+```mermaid
 %% C.R.A.F.T. Framework — Simple Workflow
 %% Clarify -> Record -> Assemble -> Forge -> Test & Tune
 flowchart TD
@@ -44,3 +45,4 @@ flowchart TD
     classDef stage fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,font-weight:bold
     classDef gate  fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
     classDef sup   fill:#dcfce7,stroke:#16a34a,color:#14532d
+```
