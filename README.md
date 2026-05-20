@@ -8,7 +8,7 @@ five-stage AI agent workflow (Clarify, Record, Assemble, Forge, Test & Tune).
 In Claude Code:
 
 ```
-/plugin marketplace add your-org/craft-marketplace
+/plugin marketplace add spalanivelu1989/craft-marketplace
 /plugin install craft-framework@craft-marketplace
 ```
 
@@ -27,12 +27,6 @@ craft-marketplace/
         ├── agents/               ← 5 role agents
         └── README.md
 ```
-
-## For maintainers
-
-- Validate before publishing: `claude plugin validate .`
-- Test locally: `claude --plugin-dir ./plugins/craft-framework`
-- Release: bump `version` in `plugin.json` and `marketplace.json`, commit, push.
 
 See the C.R.A.F.T. plugin README in `plugins/craft-framework/` for usage.
 
