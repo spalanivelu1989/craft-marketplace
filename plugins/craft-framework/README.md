@@ -50,11 +50,10 @@ loops back, with everything you learned recorded in `LEARNINGS.md`.
 Three layers run underneath every stage: **Memory** (project knowledge),
 the **Skills** in this plugin, and the **Human Gate**.
 
-## Recommended MCP integrations
+## Bundled MCP integrations
 
-C.R.A.F.T. pairs well with MCP servers that bring in live external knowledge.
-The marketplace ships with [Context7](https://github.com/upstash/context7)
-pre-configured in `.claude/settings.json`.
+This plugin ships with [Context7](https://github.com/upstash/context7) built in.
+It is installed and activated automatically — no manual configuration needed.
 
 **Context7** fetches current, version-specific library documentation on demand
 — particularly useful during **Forge (Stage 4)** when building web applications

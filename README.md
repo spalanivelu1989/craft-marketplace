@@ -16,11 +16,11 @@ Then run `/craft-framework:craft` to begin.
 
 ## MCP Integrations
 
-This marketplace ships with a project-level `.claude/settings.json` that pre-configures recommended MCP servers:
+The C.R.A.F.T. Framework plugin bundles [Context7](https://github.com/upstash/context7) — it is installed and activated automatically when you install the plugin. No manual configuration needed.
 
-| MCP Server                                      | Purpose                                                           |
-| ----------------------------------------------- | ----------------------------------------------------------------- |
-| [Context7](https://github.com/upstash/context7) | Fetches current, version-specific library documentation on demand |
+| MCP Server | Purpose |
+| ---------- | ------- |
+| Context7 | Fetches current, version-specific library documentation on demand |
 
 **Using Context7:** When asking about a library or framework, prefix your prompt with `use context7`:
 
@@ -50,7 +50,7 @@ Run `/hooks` in Claude Code to review, disable, or modify either hook.
 ```
 craft-marketplace/
 ├── .claude/
-│   └── settings.json             ← project-level MCP server config
+│   └── settings.json             ← project-level hooks config
 ├── .claude-plugin/
 │   └── marketplace.json          ← the marketplace catalog
 └── plugins/

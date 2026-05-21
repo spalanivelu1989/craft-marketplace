@@ -7,5 +7,11 @@
   "homepage": "https://github.com/spalanivelu1989/craft-marketplace",
   "repository": "https://github.com/spalanivelu1989/craft-marketplace",
   "license": "MIT",
-  "keywords": ["workflow", "framework", "planning", "craft"]
+  "keywords": ["workflow", "framework", "planning", "craft"],
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    }
+  }
 }
