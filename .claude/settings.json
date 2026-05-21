@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    }
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; npx prettier --write \"$f\"; } 2>/dev/null || true",
+            "statusMessage": "Formatting with Prettier..."
+          },
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; npx eslint --fix \"$f\"; } 2>/dev/null || true",
+            "statusMessage": "Linting with ESLint..."
+          },
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; [[ \"$f\" == *.json ]] && { jq empty \"$f\" 2>/dev/null || printf '{\"systemMessage\":\"Invalid JSON in %s — fix before committing.\"}' \"$(basename \"$f\")\"; }; }",
+            "statusMessage": "Validating JSON..."
+          },
+          {
+            "type": "command",
+            "command": "v1=$(jq -r '.plugins[0].version' /Users/senthilpalanivelu/Programme/craft-marketplace/.claude-plugin/marketplace.json 2>/dev/null); v2=$(jq -r '.version' /Users/senthilpalanivelu/Programme/craft-marketplace/plugins/craft-framework/.claude-plugin/plugin.json 2>/dev/null); [[ -n \"$v1\" && -n \"$v2\" && \"$v1\" != \"$v2\" ]] && printf '{\"systemMessage\":\"\\u26a0 Version mismatch: marketplace.json=%s, plugin.json=%s \\u2014 update both to match.\"}' \"$v1\" \"$v2\" || true",
+            "statusMessage": "Checking version sync..."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -14,10 +14,43 @@ In Claude Code:
 
 Then run `/craft-framework:craft` to begin.
 
+## MCP Integrations
+
+This marketplace ships with a project-level `.claude/settings.json` that pre-configures recommended MCP servers:
+
+| MCP Server                                      | Purpose                                                           |
+| ----------------------------------------------- | ----------------------------------------------------------------- |
+| [Context7](https://github.com/upstash/context7) | Fetches current, version-specific library documentation on demand |
+
+**Using Context7:** When asking about a library or framework, prefix your prompt with `use context7`:
+
+```
+use context7 — how do I set up file-based routing in Next.js 15?
+use context7 — latest React 19 server actions best practices
+```
+
+Context7 resolves the library, pulls live docs, and injects them into the conversation — so answers reflect the actual current API, not training data.
+
+
+## Hooks
+
+This marketplace ships with two `PostToolUse` hooks that run automatically after every file edit or write:
+
+| Hook | Tool | What it does |
+| ---- | ---- | ------------ |
+| Prettier | `npx prettier --write` | Auto-formats the edited file (MD, JSON, JS, TS, CSS) |
+| ESLint | `npx eslint --fix` | Auto-fixes lint errors in the edited file |
+
+Both hooks are pre-configured in `.claude/settings.json` and fire silently — no output unless something fails. ESLint requires an `eslint.config.js` in your project root to activate; it is a no-op without one.
+
+Run `/hooks` in Claude Code to review, disable, or modify either hook.
+
 ## What's in here
 
 ```
 craft-marketplace/
+├── .claude/
+│   └── settings.json             ← project-level MCP server config
 ├── .claude-plugin/
 │   └── marketplace.json          ← the marketplace catalog
 └── plugins/
