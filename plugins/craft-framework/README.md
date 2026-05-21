@@ -70,22 +70,22 @@ breaking changes in fast-moving frameworks. With it, the Forge stage produces
 code that matches the library version you're actually using.
 
 
-## Recommended hooks
+## Bundled hooks
 
-The marketplace ships with two `PostToolUse` hooks pre-configured in `.claude/settings.json`
-that run automatically after every file Claude edits or writes:
+This plugin ships with two `PostToolUse` hooks declared in `hooks/hooks.json`.
+They activate automatically when the plugin is installed — no manual setup needed.
 
 | Hook | What it does | Stage most useful |
 | ---- | ------------ | ----------------- |
-| **Prettier** | Auto-formats the saved file (MD, JSON, JS, TS, CSS) | All stages |
-| **ESLint** | Auto-fixes lint errors in the saved file | Forge (Stage 4) |
+| **Prettier** | Auto-formats every file Claude writes (MD, JSON, JS, TS, CSS) | All stages |
+| **ESLint** | Auto-fixes lint errors in every file Claude writes | Forge (Stage 4) |
 
-Hooks fire silently in the background — no manual step needed. ESLint requires an
-`eslint.config.js` in your web app project root; it is a no-op without one.
+Hooks fire silently in the background. ESLint requires an `eslint.config.js` in
+your web app project root to activate; it is a no-op without one.
 
-During **Forge (Stage 4)**, this means every file the builder agent writes is
-immediately formatted and linted, so the code that lands in your repo is clean
-without a separate cleanup pass.
+During **Forge (Stage 4)**, every file the builder agent writes is immediately
+formatted and linted — the code that lands in your repo is clean without a
+separate cleanup pass.
 
 Run `/hooks` in Claude Code to review, disable, or modify either hook.
 

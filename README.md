@@ -34,14 +34,14 @@ Context7 resolves the library, pulls live docs, and injects them into the conver
 
 ## Hooks
 
-This marketplace ships with two `PostToolUse` hooks that run automatically after every file edit or write:
+The C.R.A.F.T. Framework plugin bundles two `PostToolUse` hooks that activate automatically after every file edit or write — no manual setup needed:
 
 | Hook | Tool | What it does |
 | ---- | ---- | ------------ |
 | Prettier | `npx prettier --write` | Auto-formats the edited file (MD, JSON, JS, TS, CSS) |
 | ESLint | `npx eslint --fix` | Auto-fixes lint errors in the edited file |
 
-Both hooks are pre-configured in `.claude/settings.json` and fire silently — no output unless something fails. ESLint requires an `eslint.config.js` in your project root to activate; it is a no-op without one.
+Hooks fire silently — no output unless something fails. ESLint requires an `eslint.config.js` in your web app project root to activate; it is a no-op without one.
 
 Run `/hooks` in Claude Code to review, disable, or modify either hook.
 

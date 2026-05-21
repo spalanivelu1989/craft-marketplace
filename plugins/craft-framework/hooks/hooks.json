@@ -1,0 +1,22 @@
+{
+  "description": "C.R.A.F.T. Framework — auto-format and lint every file written during Forge",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; npx prettier --write \"$f\"; } 2>/dev/null || true",
+            "statusMessage": "Formatting with Prettier..."
+          },
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; npx eslint --fix \"$f\"; } 2>/dev/null || true",
+            "statusMessage": "Linting with ESLint..."
+          }
+        ]
+      }
+    ]
+  }
+}
