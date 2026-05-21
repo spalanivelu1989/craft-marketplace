@@ -50,12 +50,16 @@ Run `/hooks` in Claude Code to review, disable, or modify either hook.
 ```
 craft-marketplace/
 ├── .claude/
-│   └── settings.json             ← project-level hooks config
+│   └── settings.json             ← marketplace-level hooks (JSON validation, version sync)
 ├── .claude-plugin/
 │   └── marketplace.json          ← the marketplace catalog
+├── CLAUDE.md                     ← project rules for Claude
 └── plugins/
     └── craft-framework/          ← the C.R.A.F.T. plugin
-        ├── .claude-plugin/plugin.json
+        ├── .claude-plugin/
+        │   └── plugin.json       ← plugin manifest + bundled Context7 MCP
+        ├── hooks/
+        │   └── hooks.json        ← bundled hooks (Prettier, ESLint)
         ├── skills/               ← 7 skills (the 5 stages + orchestrator + setup)
         ├── agents/               ← 5 role agents
         └── README.md
