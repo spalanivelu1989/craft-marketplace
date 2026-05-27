@@ -21,13 +21,22 @@ description: >-
    dependencies, risks with mitigations, and key decisions with reasons.
 4. **Produce the Task list** using `templates/tasks-template.md`. Rules:
    - Each task is **small** — about 2–5 minutes to describe, one clear outcome.
-   - Give every task a dependency order (what must come before it).
+   - Give every task an ID (T1, T2…) and a dependency order (what must come
+     before it).
    - Mark tasks that can run **in parallel** with `[P]`.
-   - Each task names its expected output and how to tell it's complete.
+   - Each task names the requirement(s) it **Covers** (R-IDs), its expected
+     output, and how to tell it's complete.
    - If a task is hard to describe in a sentence or two, split it.
-5. **Run the coverage check.** Every Spec requirement must map to at least one
-   task — and no task may add scope the Spec never asked for.
+5. **Run the coverage check.** Fill the coverage matrix in `tasks.md` mapping
+   every requirement to the task(s) that cover it. Every Spec requirement must
+   map to at least one task (no coverage gaps), and every task must cite a
+   requirement (no scope the Spec never asked for).
 6. **Save** `plan.md` and `tasks.md` in `specs/<project-name>/`.
+7. **Validate before the gate.** Run `/craft-framework:validate
+specs/<project-name>` (or the bundled `scripts/validate.sh`). It confirms the
+   Plan and Tasks have all required sections and — critically — that the
+   coverage matrix has no gaps (every requirement maps to a task) and no
+   untraceable tasks. Fix any **FAIL** before proceeding.
 
 ## Human Gate — stop here
 

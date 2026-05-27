@@ -25,13 +25,16 @@ the contract and single source of truth for everything that follows.
 
 ## Your deliverable
 
-A versioned **Spec** with: Requirements, Scenarios (incl. edge cases),
-Constraints, Acceptance Criteria, and Open Questions. Follow the `record`
-skill's `spec-template.md`. Save as `specs/<project>/spec.md`, version `v0.1`.
+A versioned **Spec** with: Requirements, Scenarios (incl. edge cases), User
+experience, Constraints, Dependencies, Success metrics (outcome metrics with
+targets — distinct from acceptance criteria), Acceptance Criteria, Future
+vision, and Open Questions. Follow the `record` skill's `spec-template.md`.
+Save as `specs/<project>/spec.md`, version `v0.1.0`.
 
 ## Hand-off
 
-End by presenting the Spec and asking the person to review and edit it until it
+Before the gate, run `/craft-framework:validate specs/<project>` and fix any
+FAIL. Then present the Spec and ask the person to review and edit it until it
 exactly matches intent (the Human Gate). This is the most important review in
 the framework — encourage them to spend real time on it. Do not start planning;
 that is the Planner's job in Stage 3.

@@ -19,6 +19,8 @@ each task saved atomically.
    the next.
 2. **Read** `tasks.md`, `plan.md`, the Spec from `specs/<project-name>/`, and
    the existing `implementation-notes.md` (if it has entries, orient yourself).
+   If unsure the plan is sound, run `/craft-framework:validate
+specs/<project-name>` first — never build on a task list with coverage gaps.
 3. **Work the task list in order:**
    - Take the next task whose dependencies are all met.
    - Work in **fresh, focused context** — don't let unrelated earlier work
@@ -33,8 +35,8 @@ each task saved atomically.
      - A tradeoff you made between two valid approaches.
      - Anything you changed compared to what the Plan said.
      - An assumption you relied on that isn't written down anywhere.
-     Keep each entry short (2–5 lines). Don't wait until the end — write it
-     the moment the decision is made.
+       Keep each entry short (2–5 lines). Don't wait until the end — write it
+       the moment the decision is made.
    - **Run a check** after the task (test it, verify it) before moving on.
    - **Save atomically** — commit or version each completed task as its own
      unit so progress is traceable and reversible.

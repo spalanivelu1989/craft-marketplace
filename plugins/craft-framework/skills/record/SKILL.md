@@ -23,14 +23,34 @@ Spec file.
    - **Requirements** — clear statements of what the result must do (R1, R2…).
    - **Scenarios** — concrete "when X happens, the result should do Y"
      examples, including edge cases and exceptions, not just the happy path.
+   - **User experience** — the key journeys, flows/states, and UX principles
+     from the user's point of view (not technical design). Omit only if there
+     is genuinely no user-facing experience.
    - **Constraints** — limits the solution must respect.
+   - **Dependencies** — what this depends on to succeed (team, external,
+     technical, sequencing) — surfaced now, not discovered mid-build.
+   - **Success metrics** — outcome metrics (M1, M2…) with baseline, target, and
+     how measured. These are **distinct from acceptance criteria**: metrics
+     prove the product is _succeeding_; acceptance criteria prove it was _built
+     correctly_. Require at least one metric with a target.
    - **Acceptance criteria** — a checklist where every item is observable and
-     testable by someone other than the builder. All ticked = done.
+     testable by someone other than the builder; give each an ID (AC1, AC2…)
+     and trace it to the requirement(s) it proves. Every Must-requirement needs
+     at least one acceptance criterion. All ticked = done.
+   - **Future vision** — where this heads beyond current scope (what it unlocks,
+     likely v2+, deliberately deferred). A direction, not a commitment.
    - **Open questions** — anything still unknown, flagged clearly.
 4. **Use the project's shared vocabulary** from `CONTEXT.md` so words mean one
    thing to everyone.
 5. **Describe WHAT, not HOW.** How it gets built is Stage 3 (Assemble).
-6. **Save it** as `specs/<project-name>/spec.md` and set version to `v0.1`.
+6. **Save it** as `specs/<project-name>/spec.md` and set version to `v0.1.0`
+   (semver — every later approved change bumps it and adds a Change log row).
+7. **Validate before the gate.** Run `/craft-framework:validate
+specs/<project-name>` (or the bundled `scripts/validate.sh`). It checks the
+   Spec has all required sections, a semver version, at least one outcome
+   metric, and that every requirement is verified by an acceptance criterion.
+   Fix any **FAIL** before proceeding — do not present a failing Spec for
+   approval.
 
 ## Human Gate — stop here
 

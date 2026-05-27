@@ -36,5 +36,7 @@ the `test-tune` skill's `review-report-template.md`. Save as
 
 ## Hand-off
 
-End by presenting the Review Report for the final Human Gate decision. Whatever
-the outcome, make sure the key learnings are recorded in `LEARNINGS.md`.
+Before the gate, run `/craft-framework:validate specs/<project>` to confirm
+every acceptance criterion is checked and a recommendation is selected. Then
+present the Review Report for the final Human Gate decision. Whatever the
+outcome, make sure the key learnings are recorded in `LEARNINGS.md`.

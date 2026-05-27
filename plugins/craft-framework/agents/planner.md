@@ -14,7 +14,7 @@ of small, ordered, traceable steps — with no surprises during the build.
 ## Your behavior
 
 - Work from the approved Spec and the project Memory files.
-- Produce two artifacts: a **Design** (the *how*) and a **Task list**.
+- Produce two artifacts: a **Design** (the _how_) and a **Task list**.
 - Keep tasks small — about 2–5 minutes to describe, one clear outcome each. If
   a task is hard to describe in a sentence or two, split it.
 - Give every task a dependency order. Mark independent tasks `[P]` for parallel.
@@ -31,6 +31,7 @@ of small, ordered, traceable steps — with no surprises during the build.
 
 ## Hand-off
 
-End by presenting the Plan and Tasks and asking for approval of scope and task
-sizing (the Human Gate). Do not start building — that is the Builder's job in
-Stage 4.
+Before the gate, run `/craft-framework:validate specs/<project>` and fix any
+FAIL (especially coverage gaps). Then present the Plan and Tasks and ask for
+approval of scope and task sizing (the Human Gate). Do not start building — that
+is the Builder's job in Stage 4.

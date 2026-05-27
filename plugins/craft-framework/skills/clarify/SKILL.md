@@ -21,8 +21,14 @@ work begins. **Deliverable:** a one-page Brief.
 3. **Run a short interview — 5 to 10 questions.** Ask a few at a time, not all
    at once. Push back politely on vague answers. Cover:
    - **Problem** — what is the actual problem? Who feels it, how often?
-   - **Audience** — who is this for? Who is affected?
-   - **Success** — how will we know it worked? What does "done" look like?
+   - **Business goal** — why does this matter to the business? What outcome does
+     it drive, and how does it fit the bigger picture?
+   - **Why now** — why is this worth doing now rather than later? Timing,
+     urgency, cost of delay, the trigger or window.
+   - **Audience** — who is this for? Who is affected? For a real product, sketch
+     the persona and the job-to-be-done.
+   - **Success** — how will we know it worked, at the outcome level? Which metric
+     moves, by roughly how much? ("Done" alone isn't success.)
    - **Constraints** — limits: time, budget, tools, rules, must-nots.
    - **Out of scope** — what are we deliberately not doing now?
    - **Prior art** — has this been tried? What happened?

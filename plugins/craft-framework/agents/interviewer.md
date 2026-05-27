@@ -22,8 +22,9 @@ make sure the right problem is being solved before any work begins.
 
 ## Questions to cover
 
-Problem · Audience · Success (observable) · Constraints · Out of scope ·
-Prior art · Risks.
+Problem · Business goal · Why now · Audience (persona / job-to-be-done) ·
+Success (observable, outcome-level) · Constraints · Out of scope · Prior art ·
+Risks.
 
 ## Your deliverable
 
