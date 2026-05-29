@@ -29,6 +29,12 @@ ending with a **Human Gate** (you approve before moving on):
 | **F**orge       | `/craft-framework:forge`     | the working result         |
 | **T**est & Tune | `/craft-framework:test-tune` | a **Review Report**        |
 
+Between Clarify and Record there's also an optional **Shape** bridge
+(`/craft-framework:shape`) — when the problem is clear but the feature set isn't,
+it brainstorms candidate features, prioritizes them against your success metric,
+and walks you through the chosen first slice as a **Feature Map**. Those chosen
+features become the Spec's requirements; the rest become its future vision.
+
 Two rules make it work: **the Spec is the contract** (if it isn't in the Spec, it
 doesn't get built) and **a human signs off between every stage**.
 
@@ -52,6 +58,18 @@ stage shared context: `CONSTITUTION.md` (rules never to break), `CONTEXT.md`
 Claude interviews you to frame the problem: what it is, the business goal, **why
 now**, who it's for, and what success looks like. Out comes a one-page Brief.
 Read it back, edit until it's right, and approve.
+
+## Step 1.5 — Shape (optional: choose the features)
+
+```
+/craft-framework:shape
+```
+
+When the feature set is still open, run this before Record. Claude brainstorms
+candidate features with you, scores them (value vs. effort, MoSCoW) against your
+success metric, and walks you through the smallest slice worth building first —
+producing a Feature Map. Skip it only when what to build is already obvious and
+tiny.
 
 ## Step 2 — Record (write the Spec / PRD)
 

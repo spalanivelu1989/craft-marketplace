@@ -40,14 +40,35 @@ it exercises.
 
 ## User experience
 
-The core of how a user _experiences_ this — not the technical design (that's the
-Plan). Capture the key journeys and the principles that shape them. Omit only if
-this work genuinely has no user-facing experience (e.g. an internal data job).
+How a user _experiences_ this — not the technical design (that's the Plan).
+Capture the key journeys and the **design decisions** that shape them, with
+enough specificity that the result feels intentional, not generated. Omit only
+if this work genuinely has no user-facing surface (e.g. an internal data job).
 
-- **Primary journey(s):** <!-- step-by-step, from the user's point of view -->
-- **Key flows / states:** <!-- empty, loading, error, success, important edge states -->
-- **UX principles:** <!-- e.g. "no dead ends", "progressive disclosure" -->
-- **Mockups / prototypes:** <!-- links or references, if any -->
+- **Primary journey(s):** step-by-step, from the user's point of view.
+- **Hierarchy:** on each key screen, what the user sees first, second, third.
+  If everything competes, nothing wins.
+- **States — every one is a design:** empty, loading, error, success, and
+  important edge states. "No results" is not a design — give each state warmth,
+  a primary action, and context.
+- **Specificity over vibes:** name the real choices — type scale, spacing,
+  key interaction patterns. "Clean, modern UI" is not a design decision.
+- **Responsive:** what actually changes per viewport (not just "stacked on
+  mobile").
+- **Accessibility:** keyboard nav and focus order, contrast, and touch targets
+  (≥44px). Specify them here or they won't exist. Mirror anything measurable
+  into an NFR (`N#`) so it can be tested.
+- **Avoid generic / "AI slop":** call out any pattern that would make this look
+  like every other generated UI (cookie-cutter card grids, decorative blobs,
+  centered everything, system-font default) and the intentional choice instead.
+- **UX principles:** the rules that shape the flows — e.g. "don't make me
+  think" (each screen self-evident), "users scan, don't read", "no dead ends",
+  progressive disclosure.
+- **Mockups / prototypes:** links or references, if any.
+
+> Skip a bullet only when it genuinely doesn't apply. A UX section that just
+> says "clean and simple" has recorded no design decision at all — that's the
+> shape this section exists to prevent.
 
 ## Constraints
 

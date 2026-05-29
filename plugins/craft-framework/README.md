@@ -9,25 +9,27 @@ with a human sign-off between each one.
 
 ## What this plugin gives you
 
-**9 skills** (run with `/craft-framework:<skill>`):
+**11 skills** (run with `/craft-framework:<skill>`):
 
 | Skill          | What it does                                                                            |
 | -------------- | --------------------------------------------------------------------------------------- |
 | `craft`        | Overview + helps you pick the right stage                                               |
 | `setup-memory` | One-time setup: creates the project memory files                                        |
 | `clarify`      | Stage 1 — frame the problem, produce a Brief                                            |
+| `shape`        | Bridge — brainstorm & choose features, produce a Feature Map (optional)                 |
 | `record`       | Stage 2 — write the Spec                                                                |
 | `assemble`     | Stage 3 — produce a Plan + Task list                                                    |
 | `forge`        | Stage 4 — execute the tasks                                                             |
 | `test-tune`    | Stage 5 — validate and produce a Review Report                                          |
 | `validate`     | Utility — deterministically check artifacts for completeness + coverage before any gate |
 | `measure`      | Utility — post-ship, compare outcome metrics against target to close the loop           |
+| `deepen`       | Utility (code) — find architectural deepening opportunities in an existing codebase     |
 
-**5 role agents** (specialist personas for each stage): `interviewer`,
-`strategist`, `planner`, `builder`, `reviewer`.
+**6 role agents** (specialist personas): `interviewer`, `shaper`, `strategist`,
+`planner`, `builder`, `reviewer`.
 
-**Bundled templates** for every deliverable — Brief, Spec, Plan, Tasks,
-Review Report, Measurement Report, and the five memory files (including
+**Bundled templates** for every deliverable — Brief, Feature Map, Spec, Plan,
+Tasks, Review Report, Measurement Report, and the five memory files (including
 `implementation-notes.md`, a live log of decisions and tradeoffs written
 during Forge).
 
@@ -36,11 +38,13 @@ during Forge).
 ```
 /craft-framework:setup-memory     # one-time: create memory files
 /craft-framework:clarify          # Stage 1 — frame the problem (Brief)
+/craft-framework:shape            # Bridge — brainstorm & choose features (optional)
 /craft-framework:record           # Stage 2 — write the Spec / PRD
 /craft-framework:assemble         # Stage 3 — Plan + Task list
 /craft-framework:forge            # Stage 4 — build it
 /craft-framework:test-tune        # Stage 5 — validate & review
 /craft-framework:measure          # after ship — did it actually work?
+/craft-framework:deepen           # any time — improve an existing codebase's architecture
 ```
 
 Not sure where to start? Just run `/craft-framework:craft`.
@@ -78,7 +82,8 @@ the **Skills** in this plugin, and the **Human Gate**.
 Stage 2 (Record) produces more than a feature list — it's a product requirements
 document. Beyond requirements, scenarios, and testable acceptance criteria, the
 Spec captures **outcome metrics** (with baseline + target), the **user
-experience** (key journeys and flows), **non-functional requirements** (system
+experience** (key journeys, states, and explicit design decisions — hierarchy,
+accessibility, responsive, anti-slop), **non-functional requirements** (system
 qualities with measurable targets), **assumptions** (surfaced up front, not
 discovered mid-build), **dependencies**, and a **future vision** — and the Brief
 that precedes it frames the **business goal** and **why now**. This is what
@@ -96,10 +101,11 @@ automatically before their Human Gate; you can also run it any time:
 /craft-framework:validate specs/<project-name>
 ```
 
-It checks required sections, semver spec versioning, the presence of at least
-one outcome metric, and full requirement → acceptance → task → review
-traceability (no coverage gaps, no untraceable tasks). It validates whichever
-artifacts exist, so it is safe to run at any stage.
+It checks stage ordering (no skipped or unapproved upstream stages), required
+sections, semver spec versioning, the presence of at least one outcome metric,
+and full requirement → acceptance → task → review traceability (no coverage
+gaps, no untraceable tasks). It validates whichever artifacts exist, so it is
+safe to run at any stage.
 
 ## Bundled MCP integrations
 
@@ -122,16 +128,29 @@ code that matches the library version you're actually using.
 
 ## Bundled hooks
 
-This plugin ships with two `PostToolUse` hooks declared in `hooks/hooks.json`.
-They activate automatically when the plugin is installed — no manual setup needed.
+This plugin ships with hooks declared in `hooks/hooks.json`. They activate
+automatically when the plugin is installed — no manual setup needed.
 
-| Hook         | What it does                                                  | Stage most useful |
-| ------------ | ------------------------------------------------------------- | ----------------- |
-| **Prettier** | Auto-formats every file Claude writes (MD, JSON, JS, TS, CSS) | All stages        |
-| **ESLint**   | Auto-fixes lint errors in every file Claude writes            | Forge (Stage 4)   |
+| Hook                    | When          | What it does                                                                        | Stage most useful         |
+| ----------------------- | ------------- | ----------------------------------------------------------------------------------- | ------------------------- |
+| **Implementation gate** | `PreToolUse`  | Blocks edits to implementation files until an approved `plan.md` + `tasks.md` exist | Gates all of 1–3 before 4 |
+| **Prettier**            | `PostToolUse` | Auto-formats every file Claude writes (MD, JSON, JS, TS, CSS)                       | All stages                |
+| **ESLint**              | `PostToolUse` | Auto-fixes lint errors in every file Claude writes                                  | Forge (Stage 4)           |
 
-Hooks fire silently in the background. ESLint requires an `eslint.config.js` in
-your web app project root to activate; it is a no-op without one.
+The **implementation gate** is what makes "you can't skip to implementation" a
+hard stop rather than a guideline: until some project has passed both Assemble
+gates (`plan.md` and `tasks.md` both `Status: Approved`), any edit to a
+non-artifact file is denied with an explanation of which stage to finish first.
+It is deliberately conservative — it only activates inside a repo that has
+actually started a C.R.A.F.T. project (a `specs/<project>/brief.md` exists), so a
+global plugin install never blocks edits in unrelated projects. Edits to the
+framework's own artifacts (anything under `specs/`, and the Memory files) are
+always allowed so the planning stages can do their work. Bypass deliberately —
+e.g. an unrelated hotfix — with `CRAFT_GATE_OFF=1`.
+
+Formatting hooks fire silently in the background. ESLint requires an
+`eslint.config.js` in your web app project root to activate; it is a no-op
+without one.
 
 During **Forge (Stage 4)**, every file the builder agent writes is immediately
 formatted and linted — the code that lands in your repo is clean without a

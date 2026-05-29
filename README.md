@@ -33,14 +33,15 @@ Context7 resolves the library, pulls live docs, and injects them into the conver
 
 ## Hooks
 
-The C.R.A.F.T. Framework plugin bundles two `PostToolUse` hooks that activate automatically after every file edit or write — no manual setup needed:
+The C.R.A.F.T. Framework plugin bundles hooks that activate automatically — no manual setup needed:
 
-| Hook     | Tool                   | What it does                                         |
-| -------- | ---------------------- | ---------------------------------------------------- |
-| Prettier | `npx prettier --write` | Auto-formats the edited file (MD, JSON, JS, TS, CSS) |
-| ESLint   | `npx eslint --fix`     | Auto-fixes lint errors in the edited file            |
+| Hook                | Event         | What it does                                                                             |
+| ------------------- | ------------- | ---------------------------------------------------------------------------------------- |
+| Implementation gate | `PreToolUse`  | Blocks edits to code until an approved `plan.md` + `tasks.md` exist (the "earn it" gate) |
+| Prettier            | `PostToolUse` | Auto-formats the edited file (MD, JSON, JS, TS, CSS)                                     |
+| ESLint              | `PostToolUse` | Auto-fixes lint errors in the edited file                                                |
 
-Hooks fire silently — no output unless something fails. ESLint requires an `eslint.config.js` in your web app project root to activate; it is a no-op without one.
+The implementation gate only activates inside a repo that has started a C.R.A.F.T. project (`specs/<project>/brief.md` exists), and always allows edits to the framework's own artifacts (under `specs/`, plus the Memory files). Bypass with `CRAFT_GATE_OFF=1`. Formatting hooks fire silently — no output unless something fails. ESLint requires an `eslint.config.js` in your web app project root to activate; it is a no-op without one.
 
 Run `/hooks` in Claude Code to review, disable, or modify either hook.
 
@@ -60,9 +61,10 @@ craft-marketplace/
         ├── hooks/
         │   └── hooks.json        ← bundled hooks (Prettier, ESLint)
         ├── scripts/
-        │   └── validate.sh       ← deterministic artifact/coverage validator
-        ├── skills/               ← 9 skills (5 stages + orchestrator + setup + validate + measure)
-        ├── agents/               ← 5 role agents
+        │   ├── validate.sh       ← deterministic artifact/coverage/ordering validator
+        │   └── gate.sh           ← PreToolUse implementation gate (blocks code before approval)
+        ├── skills/               ← 11 skills (5 stages + orchestrator + setup + shape + validate + measure + deepen)
+        ├── agents/               ← 6 role agents
         └── README.md
 ```
 

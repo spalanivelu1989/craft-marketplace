@@ -1,6 +1,18 @@
 {
-  "description": "C.R.A.F.T. Framework — auto-format and lint every file written during Forge",
+  "description": "C.R.A.F.T. Framework — gate implementation behind the Assemble approvals (PreToolUse), then auto-format and lint every file written during Forge (PostToolUse)",
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PLUGIN_ROOT/scripts/gate.sh\"",
+            "statusMessage": "Checking C.R.A.F.T. implementation gate..."
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write",

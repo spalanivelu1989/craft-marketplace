@@ -17,7 +17,8 @@
 ## Architecture & structure
 
 <!-- The structure of the result: components/modules/files, how they're organized,
-     named tools and systems used. A diagram or tree is welcome. -->
+     named tools and systems used. An ASCII tree or diagram is expected for any
+     non-trivial structure — prose alone hides how the pieces fit. -->
 
 ## Components / modules
 
@@ -28,8 +29,28 @@
 
 ## Data flow
 
-<!-- How information moves through the system, start to finish. Cover the main
-     path and the important error/edge paths. -->
+How information moves through the system, start to finish — the main path and
+the important error/edge paths. **Include an ASCII diagram** for any non-trivial
+data flow, state machine, or processing pipeline. Prose alone hides branching; a
+diagram makes the flow reviewable at a glance.
+
+<!-- ASCII diagram here. Example:
+
+  request → [validate] → [enrich] → [persist] → 200 response
+                │ invalid
+                ▼
+            [400 error]
+-->
+
+> **Inline diagrams (code comments):** name the implementation files that should
+> carry an ASCII diagram in a comment — models with non-obvious state
+> transitions, services with multi-step pipelines, complex request flows. Forge
+> adds them, and keeping them accurate is part of the change: a stale diagram is
+> worse than none because it actively misleads.
+
+| File / module | Diagram it should carry |
+| ------------- | ----------------------- |
+|               |                         |
 
 ## Interfaces / Contracts
 

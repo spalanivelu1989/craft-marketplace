@@ -17,11 +17,22 @@ each task saved atomically.
 
 1. **Adopt the Builder role.** Your job: one task, done well and saved, then
    the next.
-2. **Read** `tasks.md`, `plan.md`, the Spec from `specs/<project-name>/`, and
-   the existing `implementation-notes.md` (if it has entries, orient yourself).
+2. **Confirm the plan is approved before building.** Check that both `plan.md`
+   and `tasks.md` read `Status: Approved`. If either is missing or still `Draft`,
+   stop — run `/craft-framework:assemble` and pass both its gates first. Building
+   from an unapproved plan is the most expensive way to discover it was wrong.
+   This is not just a guideline: the bundled **implementation gate** (a
+   `PreToolUse` hook) will _block_ edits to implementation files until an
+   approved `plan.md` + `tasks.md` exist, so a skipped Assemble stage is a hard
+   stop, not an honor-system request. (Deliberate bypass for an unrelated fix:
+   set `CRAFT_GATE_OFF=1`.)
+3. **Read `STATE.md` first** to orient — which task you're up to, what's waiting,
+   any blockers — then `tasks.md`, `plan.md`, the Spec from
+   `specs/<project-name>/`, and the existing `implementation-notes.md` (if it has
+   entries, orient yourself).
    If unsure the plan is sound, run `/craft-framework:validate
 specs/<project-name>` first — never build on a task list with coverage gaps.
-3. **Work the task list in order:**
+4. **Work the task list in order:**
    - Take the next task whose dependencies are all met.
    - Work in **fresh, focused context** — don't let unrelated earlier work
      clutter the task. For independent `[P]` tasks, you may dispatch parallel
@@ -37,11 +48,16 @@ specs/<project-name>` first — never build on a task list with coverage gaps.
      - An assumption you relied on that isn't written down anywhere.
        Keep each entry short (2–5 lines). Don't wait until the end — write it
        the moment the decision is made.
+   - **Diagrams are part of the code.** Where the Plan named a file for an
+     inline ASCII diagram (a non-obvious state machine, a multi-step pipeline, a
+     complex flow), add it in a comment as you build. When you change code near
+     an existing diagram, update the diagram in the same task — a stale diagram
+     misleads and is worse than none.
    - **Run a check** after the task (test it, verify it) before moving on.
    - **Save atomically** — commit or version each completed task as its own
      unit so progress is traceable and reversible.
    - Mark the task done in `tasks.md` and update `STATE.md`.
-4. **Repeat** until every task is complete.
+5. **Repeat** until every task is complete.
 
 ## Human Gate — light by design
 
@@ -63,3 +79,5 @@ is ready for their review alongside the deliverables.
 - Decisions and tradeoffs made with no entry in `implementation-notes.md`.
 - `implementation-notes.md` written in a single batch at the end instead of
   incrementally — the value is in capturing decisions at the moment they happen.
+- Code changed near an ASCII diagram comment but the diagram left stale, or a
+  Plan-named inline diagram never added.

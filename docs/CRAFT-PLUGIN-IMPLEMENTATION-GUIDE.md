@@ -1,4 +1,5 @@
 # Building the C.R.A.F.T. Framework as a Claude Code Plugin
+
 ## A step-by-step implementation & packaging guide
 
 This guide shows how to package the C.R.A.F.T. Framework (Clarify, Record,
@@ -29,9 +30,9 @@ servers**, and **LSP servers**. C.R.A.F.T. only needs **skills** and
 
 ### 1.2 The two manifest files
 
-| File | Lives in | Job |
-|------|----------|-----|
-| `plugin.json` | `<plugin>/.claude-plugin/` | Describes ONE plugin: its name, version, description |
+| File               | Lives in                      | Job                                                             |
+| ------------------ | ----------------------------- | --------------------------------------------------------------- |
+| `plugin.json`      | `<plugin>/.claude-plugin/`    | Describes ONE plugin: its name, version, description            |
 | `marketplace.json` | `<repo-root>/.claude-plugin/` | A catalog that lists one or more plugins and where to find them |
 
 Users install a plugin by first adding a **marketplace**, then installing a
@@ -41,13 +42,13 @@ Users install a plugin by first adding a **marketplace**, then installing a
 
 The framework's pieces map cleanly onto plugin components:
 
-| C.R.A.F.T. piece | Becomes a… | Why |
-|------------------|------------|-----|
-| The 5 stages (Clarify…Test & Tune) | **Skill** each | A stage is a "how-to" procedure Claude runs |
-| Orchestrator + memory setup | **Skill** each | Entry point and one-time setup |
-| The 5 roles (Interviewer…Reviewer) | **Agent** each | A role is a specialist persona |
-| The templates (Brief, Spec, etc.) | **Bundled files** inside skills | Reference assets the skill reads |
-| Memory & Human Gate (supporting layers) | **Instructions inside skills** | Behavior, not separate components |
+| C.R.A.F.T. piece                        | Becomes a…                      | Why                                         |
+| --------------------------------------- | ------------------------------- | ------------------------------------------- |
+| The 5 stages (Clarify…Test & Tune)      | **Skill** each                  | A stage is a "how-to" procedure Claude runs |
+| Orchestrator + memory setup             | **Skill** each                  | Entry point and one-time setup              |
+| The 5 roles (Interviewer…Reviewer)      | **Agent** each                  | A role is a specialist persona              |
+| The templates (Brief, Spec, etc.)       | **Bundled files** inside skills | Reference assets the skill reads            |
+| Memory & Human Gate (supporting layers) | **Instructions inside skills**  | Behavior, not separate components           |
 
 ### 1.4 The folder layout you are building
 
@@ -132,6 +133,7 @@ Create `plugins/craft-framework/.claude-plugin/plugin.json`:
 ```
 
 Field notes:
+
 - **`name`** — must be kebab-case (lowercase, hyphens). It becomes the skill
   namespace: skills will be called `/craft-framework:clarify`, etc.
 - **`version`** — when set, users only receive an update when you change this
@@ -157,29 +159,29 @@ description: >-
 # Stage 1 — CLARIFY (Frame the problem)
 
 [Instructions telling Claude exactly what to do when this skill runs:
- the process, the deliverable, the Human Gate, the red flags.]
+the process, the deliverable, the Human Gate, the red flags.]
 ```
 
 The **`description` is the most important line** — Claude reads it to decide
-when to use the skill automatically. Make it specific: say *what* the skill
-does and *when* to trigger it. Start with "Use when…".
+when to use the skill automatically. Make it specific: say _what_ the skill
+does and _when_ to trigger it. Start with "Use when…".
 
 The C.R.A.F.T. plugin has **7 skills**:
 
-| Folder | Purpose |
-|--------|---------|
-| `craft/` | Orchestrator — explains the framework, routes to the right stage |
-| `setup-memory/` | One-time setup — creates the five memory files |
-| `clarify/` | Stage 1 |
-| `record/` | Stage 2 |
-| `assemble/` | Stage 3 |
-| `forge/` | Stage 4 — also maintains `implementation-notes.md` live log |
-| `test-tune/` | Stage 5 |
+| Folder          | Purpose                                                          |
+| --------------- | ---------------------------------------------------------------- |
+| `craft/`        | Orchestrator — explains the framework, routes to the right stage |
+| `setup-memory/` | One-time setup — creates the five memory files                   |
+| `clarify/`      | Stage 1                                                          |
+| `record/`       | Stage 2                                                          |
+| `assemble/`     | Stage 3                                                          |
+| `forge/`        | Stage 4 — also maintains `implementation-notes.md` live log      |
+| `test-tune/`    | Stage 5                                                          |
 
 > **Skills vs. commands:** older plugins used a `commands/` folder of flat
 > `.md` files. The official guidance for new plugins is to use `skills/`
 > (folders with `SKILL.md`). Skills can be invoked explicitly as
-> `/plugin-name:skill` *and* triggered automatically by Claude when the
+> `/plugin-name:skill` _and_ triggered automatically by Claude when the
 > description matches the task. C.R.A.F.T. uses skills.
 
 ### Step 4 — Bundle the templates inside skills
@@ -205,7 +207,7 @@ skills/setup-memory/templates/implementation-notes.md
 > decision, tradeoff, or spec gap as it happens — not retroactively.
 
 Inside each `SKILL.md`, point Claude at its template with a relative path, e.g.
-*"Use the template at `templates/brief-template.md` in this skill folder."*
+_"Use the template at `templates/brief-template.md` in this skill folder."_
 
 > **Why bundle, not reference externally:** when a plugin is installed, Claude
 > Code copies the plugin folder to a cache. Files **outside** the plugin
@@ -230,11 +232,12 @@ description: >-
 # Interviewer — C.R.A.F.T. Stage 1
 
 [The persona's system prompt: who they are, how they behave, what they
- produce, and how they hand off.]
+produce, and how they hand off.]
 ```
 
-The C.R.A.F.T. plugin has **5 agents**: `interviewer`, `strategist`, `planner`,
-`builder`, `reviewer` — one per stage.
+The C.R.A.F.T. plugin has **6 agents**: `interviewer`, `shaper`, `strategist`,
+`planner`, `builder`, `reviewer` — one per stage, plus the `shaper` for the
+optional Shape bridge between Clarify and Record.
 
 ### Step 6 — Write the marketplace catalog
 
@@ -259,6 +262,7 @@ Create `craft-marketplace/.claude-plugin/marketplace.json` at the **repo root**:
 ```
 
 Field notes:
+
 - **`name`** — the marketplace's public identifier (kebab-case). Users will
   install with `craft-framework@craft-marketplace`. Avoid Anthropic's reserved
   names (`anthropic-*`, `claude-*`, `agent-skills`, etc.).
@@ -330,7 +334,7 @@ This loads the plugin for that session only. Now test it:
 /craft-framework:setup-memory     ← should create the memory files
 /craft-framework:clarify          ← should start the interview
 /help                             ← your skills appear under the plugin namespace
-/agents                           ← your 5 role agents appear here
+/agents                           ← your 6 role agents appear here
 ```
 
 After editing any file, run `/reload-plugins` to pick up changes without
@@ -430,15 +434,15 @@ individual or team to use the plugin.
 
 ## Part 9 — Common mistakes and fixes
 
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| Skills/agents not detected | `skills/` or `agents/` placed **inside** `.claude-plugin/` | Move them to the plugin root |
-| `/plugin` command missing | Claude Code out of date | Update Claude Code |
-| Plugin loads but a template is "not found" | Template referenced with a `../` path outside the plugin | Keep every file inside the skill's own folder |
-| Users don't get your update | `version` not bumped | Bump `version` in `plugin.json`, push |
-| Marketplace adds but plugin won't install | Relative `source` path + URL-based marketplace | Host the marketplace on GitHub, or use a `github` source |
-| Validation error: "name is not kebab-case" | Uppercase/spaces in `name` | Use lowercase letters, digits, hyphens only |
-| Skill never triggers automatically | Vague `description` | Rewrite the description: state what it does and when to use it |
+| Symptom                                    | Cause                                                      | Fix                                                            |
+| ------------------------------------------ | ---------------------------------------------------------- | -------------------------------------------------------------- |
+| Skills/agents not detected                 | `skills/` or `agents/` placed **inside** `.claude-plugin/` | Move them to the plugin root                                   |
+| `/plugin` command missing                  | Claude Code out of date                                    | Update Claude Code                                             |
+| Plugin loads but a template is "not found" | Template referenced with a `../` path outside the plugin   | Keep every file inside the skill's own folder                  |
+| Users don't get your update                | `version` not bumped                                       | Bump `version` in `plugin.json`, push                          |
+| Marketplace adds but plugin won't install  | Relative `source` path + URL-based marketplace             | Host the marketplace on GitHub, or use a `github` source       |
+| Validation error: "name is not kebab-case" | Uppercase/spaces in `name`                                 | Use lowercase letters, digits, hyphens only                    |
+| Skill never triggers automatically         | Vague `description`                                        | Rewrite the description: state what it does and when to use it |
 
 ---
 
@@ -464,18 +468,18 @@ individual or team to use the plugin.
 
 ## Appendix B — Quick command reference
 
-| Command | What it does |
-|---------|--------------|
-| `claude plugin validate .` | Check the plugin/marketplace for errors |
-| `claude --plugin-dir ./plugins/craft-framework` | Load the plugin locally for testing |
-| `/reload-plugins` | Reload after editing plugin files |
-| `/plugin marketplace add <source>` | Add a marketplace (local path or `owner/repo`) |
-| `/plugin install craft-framework@craft-marketplace` | Install the plugin |
-| `/plugin marketplace update` | Pull the latest plugin versions |
-| `/craft-framework:craft` | Run the C.R.A.F.T. orchestrator skill |
-| `/help` / `/agents` | List installed skills / agents |
+| Command                                             | What it does                                   |
+| --------------------------------------------------- | ---------------------------------------------- |
+| `claude plugin validate .`                          | Check the plugin/marketplace for errors        |
+| `claude --plugin-dir ./plugins/craft-framework`     | Load the plugin locally for testing            |
+| `/reload-plugins`                                   | Reload after editing plugin files              |
+| `/plugin marketplace add <source>`                  | Add a marketplace (local path or `owner/repo`) |
+| `/plugin install craft-framework@craft-marketplace` | Install the plugin                             |
+| `/plugin marketplace update`                        | Pull the latest plugin versions                |
+| `/craft-framework:craft`                            | Run the C.R.A.F.T. orchestrator skill          |
+| `/help` / `/agents`                                 | List installed skills / agents                 |
 
 ---
 
-*The fully built plugin accompanying this guide is in the `craft-marketplace/`
-folder. Validate it, test it locally, then push it to GitHub to start using it.*
+_The fully built plugin accompanying this guide is in the `craft-marketplace/`
+folder. Validate it, test it locally, then push it to GitHub to start using it._

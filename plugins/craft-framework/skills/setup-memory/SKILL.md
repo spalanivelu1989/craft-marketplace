@@ -33,12 +33,19 @@ CRAFT stage (and every agent) consistent, shared project knowledge.
 
 ## How Memory is used by the stages
 
+- **Every stage reads `STATE.md` first** to orient — where the project stands,
+  what it's waiting on, and any blockers — before doing its own work.
 - **Clarify** and **Record** read `CONSTITUTION.md` and `CONTEXT.md`.
 - **Assemble** respects `CONSTITUTION.md` rules.
 - **Forge** updates `STATE.md` after each task and appends to
   `implementation-notes.md` whenever a decision, tradeoff, or spec gap arises.
 - **Test & Tune** reads `implementation-notes.md` as part of its Layer 3
   (Alignment) review and writes new entries into `LEARNINGS.md` on loop-backs.
+- **`docs/adr/`** holds durable Architecture Decision Records — created lazily
+  (not one of the five files above). Assemble promotes significant `D#`
+  decisions here, and Shape / Test & Tune offer one on a load-bearing rejection.
+  Every stage reads it to avoid re-litigating a settled decision. Each ADR's
+  **re-litigation guard** is what stops the same idea being re-suggested later.
 
 ## Tips for the user
 

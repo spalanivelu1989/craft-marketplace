@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # C.R.A.F.T. artifact validator.
 # Deterministic, text-only checks on a project's specs/<name>/ artifacts:
-# required sections, spec semver + change log, R/AC IDs, AC->R traceability,
-# task coverage matrix (no gaps, no failures, no untraceable tasks), and the
-# review report's acceptance-criteria coverage. No model judgment involved.
+# stage ordering (no skipped/unapproved upstream stages), required sections,
+# spec semver + change log, R/AC IDs, AC->R traceability, task coverage matrix
+# (no gaps, no failures, no untraceable tasks), and the review report's
+# acceptance-criteria coverage. No model judgment involved.
 #
 # Usage:
 #   validate.sh <project-name | path-to-specs-dir>
@@ -103,6 +104,41 @@ section_body() {
 ids_in_first_column() {
   grep -oE "^\|[[:space:]]*$2[0-9]+" "$1" 2>/dev/null \
     | grep -oE "$2[0-9]+" | sort -u
+}
+
+# is_approved <file> : true if the file's Status field reads "Approved"
+is_approved() {
+  grep -qiE '^[-*][[:space:]]*\*\*Status:\*\*[[:space:]]*Approved' "$1"
+}
+
+# --- stage ordering ("do not skip steps") -----------------------------------
+# A downstream artifact must not exist unless every upstream prerequisite both
+# exists (a missing prerequisite is a skipped stage = FAIL) and is marked
+# Status: Approved (an unapproved upstream means a Human Gate was bypassed —
+# WARN, since the field can also just be stale). feature-map.md is an optional
+# bridge artifact and is deliberately not part of this chain.
+validate_order() {
+  # entry = "<downstream label>:<downstream file>:<prereq label>:<prereq file>"
+  local steps=(
+    "spec.md:$SPEC:brief.md:$BRIEF"
+    "plan.md:$PLAN:spec.md:$SPEC"
+    "tasks.md:$TASKS:spec.md:$SPEC"
+    "review-report.md:$REVIEW:plan.md:$PLAN"
+    "review-report.md:$REVIEW:tasks.md:$TASKS"
+  )
+  local entry down_label down_file pre_label pre_file ok=1
+  for entry in "${steps[@]}"; do
+    IFS=: read -r down_label down_file pre_label pre_file <<<"$entry"
+    [[ -f "$down_file" ]] || continue
+    if [[ ! -f "$pre_file" ]]; then
+      fail "out-of-order: $down_label exists but prerequisite $pre_label is missing — a stage was skipped"
+      ok=0
+    elif ! is_approved "$pre_file"; then
+      warn "$down_label exists but $pre_label is not marked Status: Approved — was its Human Gate skipped?"
+      ok=0
+    fi
+  done
+  [[ "$ok" -eq 1 ]] && pass "stage order: every artifact's prerequisites exist and are approved"
 }
 
 # --- brief.md ---------------------------------------------------------------
@@ -296,6 +332,7 @@ validate_review() {
 # --- Run --------------------------------------------------------------------
 echo "C.R.A.F.T. validation — $DIR"
 echo "---------------------------------------------"
+validate_order
 validate_brief
 validate_spec
 validate_plan

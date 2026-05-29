@@ -2,7 +2,7 @@
   "name": "craft-framework",
   "displayName": "C.R.A.F.T. Framework",
   "description": "A five-stage AI agent workflow: Clarify, Record, Assemble, Forge, Test & Tune. Guides any project from idea to validated result.",
-  "version": "1.4.0",
+  "version": "1.10.0",
   "author": {
     "name": "Senthil Palanivelu",
     "email": "spalanivelu1989@gmail.com"

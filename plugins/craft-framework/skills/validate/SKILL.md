@@ -20,6 +20,7 @@ so the same artifacts always produce the same verdict.
 1. **Identify the project** — the folder under `specs/<project-name>/` holding
    the artifacts. Ask the user if it is ambiguous.
 2. **Run the bundled validator:**
+
    ```bash
    bash "$CLAUDE_PLUGIN_ROOT/scripts/validate.sh" specs/<project-name>
    ```
@@ -28,6 +29,7 @@ so the same artifacts always produce the same verdict.
      If it is unset (e.g. running from source), locate the script with
      `find . -path '*craft-framework/scripts/validate.sh'` and run that path.
    - With no argument the script auto-detects a single `specs/*/` directory.
+
 3. **Report the result.** Relay the PASS/FAIL lines. A non-zero exit means at
    least one **FAIL** — the artifacts are not ready to pass a Human Gate.
 4. **On FAIL, fix the root cause** in the relevant artifact (add the missing
@@ -36,6 +38,10 @@ so the same artifacts always produce the same verdict.
 
 ## What it checks
 
+- **Stage order** — a downstream artifact never exists without its upstream
+  prerequisites: a missing prerequisite is a skipped stage (**FAIL**), and an
+  upstream artifact that isn't `Status: Approved` means a Human Gate was bypassed
+  (**WARN**). Enforces "do not skip steps".
 - **Sections** — each artifact has all its required headings.
 - **Spec versioning** — `Version` is semver (`vX.Y.Z`) and the Change log has
   at least one entry.

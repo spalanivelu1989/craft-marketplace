@@ -20,8 +20,9 @@ after shipping for the metrics to mean something.
 
 ## How to run this skill
 
-1. **Read the Spec's Success metrics** (`specs/<project-name>/spec.md`, the
-   `M#` table) — the baselines, targets, and how each is measured.
+1. **Read `STATE.md` first** to orient — confirm the work shipped and when —
+   then the Spec's **Success metrics** (`specs/<project-name>/spec.md`, the `M#`
+   table): the baselines, targets, and how each is measured.
 2. **Gather the actuals.** Pull each metric's current value from wherever it is
    measured (analytics, logs, a query, a survey). If a metric can't be measured,
    say so plainly — an unmeasurable metric is a finding, not a pass.
