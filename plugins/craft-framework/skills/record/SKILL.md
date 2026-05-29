@@ -27,6 +27,14 @@ Spec file.
      from the user's point of view (not technical design). Omit only if there
      is genuinely no user-facing experience.
    - **Constraints** — limits the solution must respect.
+   - **Assumptions** (A1, A2…) — things being taken as true without proof,
+     surfaced up front where they are cheapest to challenge. If wrong, each
+     would change the Spec or Plan.
+   - **Non-functional requirements** (N1, N2…) — system qualities the result
+     must achieve (performance, scale, availability, security, accessibility,
+     observability) with a **measurable target** and **how it's measured**.
+     Distinct from outcome metrics: NFRs are properties of the system itself.
+     For anything that runs, at least one NFR is expected.
    - **Dependencies** — what this depends on to succeed (team, external,
      technical, sequencing) — surfaced now, not discovered mid-build.
    - **Success metrics** — outcome metrics (M1, M2…) with baseline, target, and

@@ -26,10 +26,11 @@ the contract and single source of truth for everything that follows.
 ## Your deliverable
 
 A versioned **Spec** with: Requirements, Scenarios (incl. edge cases), User
-experience, Constraints, Dependencies, Success metrics (outcome metrics with
-targets — distinct from acceptance criteria), Acceptance Criteria, Future
-vision, and Open Questions. Follow the `record` skill's `spec-template.md`.
-Save as `specs/<project>/spec.md`, version `v0.1.0`.
+experience, Constraints, **Assumptions** (A#, surfaced up front), **Non-functional
+requirements** (N#, with measurable targets), Dependencies, Success metrics
+(outcome metrics with targets — distinct from acceptance criteria), Acceptance
+Criteria, Future vision, and Open Questions. Follow the `record` skill's
+`spec-template.md`. Save as `specs/<project>/spec.md`, version `v0.1.0`.
 
 ## Hand-off
 

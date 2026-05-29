@@ -58,6 +58,33 @@ Limits the solution must respect (technical, legal, time, style).
 | C1  |            |
 | C2  |            |
 
+## Assumptions
+
+Things we are taking as true without proof, that — if wrong — would change the
+Spec or the Plan. Surface them here, up front, where they are cheapest to
+challenge. Each gets an ID (`A1`, `A2`…). Anything the build later contradicts
+becomes a finding in the Stage 5 Alignment review.
+
+| ID  | Assumption | If wrong → impact |
+| --- | ---------- | ----------------- |
+| A1  |            |                   |
+| A2  |            |                   |
+
+## Non-functional requirements
+
+The system qualities the result must achieve — performance, scale, availability,
+security, accessibility, observability, compatibility. Distinct from outcome
+metrics (`M#` below): NFRs are properties of the _system itself_ that must hold
+to call the work done. Each gets an ID (`N1`, `N2`…) with a measurable target.
+
+| ID  | NFR (system quality) | Target (measurable) | How measured |
+| --- | -------------------- | ------------------- | ------------ |
+| N1  |                      |                     |              |
+| N2  |                      |                     |              |
+
+> Omit only if this work has no system surface (e.g. a purely written
+> deliverable). For anything that runs, at least one NFR is expected.
+
 ## Dependencies
 
 What this work depends on to succeed — surfaced here in the PRD, not discovered

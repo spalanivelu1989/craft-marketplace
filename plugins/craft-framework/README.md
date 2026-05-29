@@ -55,11 +55,20 @@ everything you learned recorded in `LEARNINGS.md`. After ship,
 `/craft-framework:measure` checks real outcomes against the Spec's targets —
 because "built correctly" is not the same as "succeeded".
 
+**Stage 3 (Assemble) has two gates**, not one: an **Architecture Gate** that
+approves the shape (`plan.md`) before any tasks are cut, and a **Task-Plan
+Gate** that approves scope coverage and task sizing. A bad architecture with
+full task coverage is worse than no plan at all — the shape gets its own
+moment of scrutiny.
+
 Every artifact is **traceable end to end**: each requirement (`R#`) is verified
 by an acceptance criterion (`AC#`), covered by a task (`T#`), checked in the
 Review Report, and ultimately judged against an outcome metric (`M#`). The
-validator enforces that chain so coverage gaps and scope creep can't slip
-through.
+Spec also captures **assumptions** (`A#`) and **non-functional requirements**
+(`N#`) up front; the Plan addresses both with explicit **contracts** (`I#`),
+**ADR-style decisions** (`D#` with options-considered and consequences), and a
+chosen **test strategy**. The validator enforces structural coverage so gaps
+and scope creep can't slip through.
 
 Three layers run underneath every stage: **Memory** (project knowledge),
 the **Skills** in this plugin, and the **Human Gate**.
@@ -69,10 +78,12 @@ the **Skills** in this plugin, and the **Human Gate**.
 Stage 2 (Record) produces more than a feature list — it's a product requirements
 document. Beyond requirements, scenarios, and testable acceptance criteria, the
 Spec captures **outcome metrics** (with baseline + target), the **user
-experience** (key journeys and flows), **dependencies**, and a **future
-vision** — and the Brief that precedes it frames the **business goal** and **why
-now**. This is what lets `measure` later prove the work actually moved the
-numbers it set out to move.
+experience** (key journeys and flows), **non-functional requirements** (system
+qualities with measurable targets), **assumptions** (surfaced up front, not
+discovered mid-build), **dependencies**, and a **future vision** — and the Brief
+that precedes it frames the **business goal** and **why now**. This is what
+lets `measure` later prove the work actually moved the numbers it set out to
+move.
 
 ## Deterministic validation
 

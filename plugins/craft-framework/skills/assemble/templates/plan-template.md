@@ -31,20 +31,44 @@
 <!-- How information moves through the system, start to finish. Cover the main
      path and the important error/edge paths. -->
 
+## Interfaces / Contracts
+
+The shapes by which components — and this system with the outside world —
+exchange information. Capture every interface that crosses a boundary (HTTP
+API, queue topic, CLI surface, file format, library export). A contract is the
+promise that tells two sides how to evolve independently. Inline the shape if
+short; link out (`./contracts/<name>.md`, schema file, OpenAPI doc) when long.
+
+| ID  | Interface | Producer | Consumer | Shape (inline or link) | Versioning policy |
+| --- | --------- | -------- | -------- | ---------------------- | ----------------- |
+| I1  |           |          |          |                        |                   |
+| I2  |           |          |          |                        |                   |
+
+> If a Spec dependency (`DEP#`) is `External` or `Technical`, there should
+> usually be a row above describing the contract by which we interact with it.
+
 ## Dependencies & integration points
 
 <!-- External libraries, services, APIs, data sources. Versions where they
      matter. Where this work plugs into existing systems. -->
 
-## Key decisions
+## Key decisions (ADRs)
 
-Each decision gets an ID (`D1`, `D2`, …) so tasks and the Review Report can
-reference it. Record the choice, the reason, and what it's driven by.
+Each significant design choice gets a row — an inline Architecture Decision
+Record. Capture not only the choice but the **alternatives considered**, **why
+they were rejected**, and the **consequences** of choosing this path. The
+decision is the easy part; the rejected options and consequences are where the
+thinking lives. Each gets an ID (`D1`, `D2`, …) so tasks and the Review Report
+can reference it.
 
-| ID  | Decision | Rationale | Driven by |
-| --- | -------- | --------- | --------- |
-| D1  |          |           | R1 / C1   |
-| D2  |          |           |           |
+| ID  | Decision | Options considered | Why not (each rejected option) | Consequences (good and bad) | Driven by |
+| --- | -------- | ------------------ | ------------------------------ | --------------------------- | --------- |
+| D1  |          |                    |                                |                             | R1 / C1   |
+| D2  |          |                    |                                |                             |           |
+
+> A row with no rejected options usually means the decision was never really
+> made — it was assumed. Either name a real alternative, or move it to
+> Assumptions in the Spec.
 
 ## Risks & mitigations
 
@@ -52,18 +76,33 @@ reference it. Record the choice, the reason, and what it's driven by.
 | --- | ---- | ------------ | ------------ | ---------- |
 | RK1 |      | Low/Med/High | Low/Med/High |            |
 
+## Test strategy
+
+How acceptance criteria (`AC#`) and NFRs (`N#`) will actually be verified —
+chosen now, not improvised at the Stage 5 review. Brief is fine; what matters
+is that the right kinds of tests exist for the right kinds of claims.
+
+- **Layers used:** <!-- e.g. unit, integration, end-to-end, manual QA, load,
+  accessibility scan — pick the ones that fit this work -->
+- **Environments:** <!-- where each layer runs (local, CI, staging, prod-shadow) -->
+- **Fixtures / data:** <!-- how realistic test data is produced -->
+- **Coverage of NFRs:** <!-- how N# targets get exercised — load test, soak
+  test, security scan, a11y audit, etc. -->
+- **Deliberately not tested (and why):** <!-- honesty up front about gaps -->
+
 ---
 
 ## Requirements coverage (design level)
 
-Confirms the design accounts for every Spec requirement before tasks are cut.
-The task-level coverage matrix lives in `tasks.md`.
+Confirms the design accounts for every Spec requirement **and every NFR**
+before tasks are cut. The task-level coverage matrix lives in `tasks.md`.
 
-| Requirement | Addressed by (component / decision) |
-| ----------- | ----------------------------------- |
-| R1          |                                     |
-| R2          |                                     |
-| R3          |                                     |
+| Requirement / NFR | Addressed by (component / decision / contract) |
+| ----------------- | ---------------------------------------------- |
+| R1                |                                                |
+| R2                |                                                |
+| R3                |                                                |
+| N1                |                                                |
 
 ---
 
